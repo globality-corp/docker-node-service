@@ -1,0 +1,33 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+
+test:
+  override:
+    - echo "Building node-service container!"
+
+deployment:
+  feature:
+    branch: feature/docker
+    commands:
+      - docker build -t $ECR_HOST_PREFIX/node-service:$CIRCLE_SHA1 .
+      - docker tag $ECR_HOST_PREFIX/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1 $ECR_HOST_PREFIX/$CIRCLE_PROJECT_REPONAME:$BRANCH_TAG
+      - docker push $ECR_HOST_PREFIX/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
+      - docker push $ECR_HOST_PREFIX/$CIRCLE_PROJECT_REPONAME:feature_docker
+  dev:
+    branch: develop
+    commands:
+      - docker build -t $ECR_HOST_PREFIX/node-service:$CIRCLE_SHA1 .
+      - docker tag $ECR_HOST_PREFIX/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1 $ECR_HOST_PREFIX/$CIRCLE_PROJECT_REPONAME:$BRANCH_TAG
+      - docker push $ECR_HOST_PREFIX/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
+      - docker push $ECR_HOST_PREFIX/$CIRCLE_PROJECT_REPONAME:$BRANCH_TAG
+  master:
+    branch: master
+    commands:
+      - docker build -t $ECR_HOST_PREFIX/node-service:$CIRCLE_SHA1 .
+      - docker tag $ECR_HOST_PREFIX/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1 $ECR_HOST_PREFIX/$CIRCLE_PROJECT_REPONAME:$BRANCH_TAG
+      - docker push $ECR_HOST_PREFIX/$CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1
+      - docker push $ECR_HOST_PREFIX/$CIRCLE_PROJECT_REPONAME:$BRANCH_TAG
