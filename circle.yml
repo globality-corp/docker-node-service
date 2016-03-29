@@ -15,7 +15,7 @@ deployment:
     commands:
       - eval $(aws ecr get-login --region us-east-1)
       - docker build -t $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$CIRCLE_SHA1 .
-      - docker tag $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$CIRCLE_SHA1 $ECR_INSTANCE_ID.$ECR_DOMAIN/$CIRCLE_PROJECT_REPONAME:feature_docker
+      - docker tag $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$CIRCLE_SHA1 $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:feature_docker
       - docker push $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$CIRCLE_SHA1
       - docker push $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:feature_docker
   dev:
@@ -23,7 +23,7 @@ deployment:
     commands:
       - eval $(aws ecr get-login --region us-east-1)
       - docker build -t $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$CIRCLE_SHA1 .
-      - docker tag $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$CIRCLE_SHA1 $ECR_INSTANCE_ID.$ECR_DOMAIN/$CIRCLE_PROJECT_REPONAME:$BRANCH_TAG
+      - docker tag $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$CIRCLE_SHA1 $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$BRANCH_TAG
       - docker push $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$CIRCLE_SHA1
       - docker push $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$BRANCH_TAG
   master:
@@ -31,6 +31,6 @@ deployment:
     commands:
       - eval $(aws ecr get-login --region us-east-1)
       - docker build -t $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$CIRCLE_SHA1 .
-      - docker tag $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$CIRCLE_SHA1 $ECR_INSTANCE_ID.$ECR_DOMAIN/$CIRCLE_PROJECT_REPONAME:$BRANCH_TAG
+      - docker tag $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$CIRCLE_SHA1 $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$BRANCH_TAG
       - docker push $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$CIRCLE_SHA1
       - docker push $ECR_INSTANCE_ID.$ECR_DOMAIN/node-service:$BRANCH_TAG
