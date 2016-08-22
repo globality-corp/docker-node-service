@@ -10,7 +10,7 @@ COPY nodesource.gpg.key /
 RUN apt-key add /nodesource.gpg.key && \
     apt-get update && \
     apt-get install -y --no-install-recommends ${INSTALL_PACKAGES} && \
-    add-apt-repository http://deb.nodesource.com/node_5.x && \
+    add-apt-repository http://deb.nodesource.com/node_6.x && \
     apt-get update && \
     apt-get install -y --no-install-recommends ${CORE_PACKAGES} && \
     apt-get install -y --no-install-recommends ${BUILD_PACKAGES}
