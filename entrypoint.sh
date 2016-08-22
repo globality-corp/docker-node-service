@@ -2,7 +2,7 @@
 
 # Container entrypoint to simplify running the production and dev servers.
 
-if [ "$1" = "pm2" ]; then
+if [ "$1" = "pm2" ] && [ -n "$NAME" ]; then
     mkdir -p /var/log/$NAME
     exec pm2 start $NAME-pm2.json --no-daemon
 elif [ "$1" = "dev" ]; then
